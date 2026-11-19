@@ -34,7 +34,8 @@ export const publications: Publication[] = [
     venue: 'WebSci Companion \'26: Companion Publication of the 2026 18th ACM Web Science Conference, pp. 70-74',
     url: 'https://doi.org/10.1145/3795513.3807441',
     award: 'Best Poster Award, ACM Web Science Conference 2026',
-    slug: 'bias-vlm-colonial-contexts',  },
+    slug: 'bias-vlm-colonial-contexts',
+    code: { label: 'Dataset on Zenodo', url: 'https://zenodo.org/records/19455764' },  },
   {
     year: 2025,
     title: 'Validating LLM-Generated Relevance Labels for Educational Resource Search',
