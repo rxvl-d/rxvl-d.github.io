@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+
+// `text` is trusted HTML written here, so links can sit inside the sentences.
+const projects: { name: string; text: string; stack?: string }[] = [
+  {
+    name: 'LessonLens',
+    text: 'A browser extension that adds educational information to the web search interfaces teachers already use, so they can judge a resource from the results page. It draws on lightweight models that extract educational metadata from web pages in real time. I developed it as part of my dissertation and evaluated it in a user study (<a href="https://link.springer.com/chapter/10.1007/978-3-031-98414-3_17">paper</a>).',
+  },
+  {
+    name: 'GROBI',
+    text: 'A <a href="https://service.tib.eu/grobi/">web platform</a> for bibliometric analysis. Users build an analysis by connecting nodes in a graph: fetch data from OpenAlex, filter it, group it and chart the result. A type system checks the connections, and pre-built analyses cover a journal, an institution or a country. I designed and implemented it with colleagues in the <a href="https://projects.tib.eu/grobi">GROBI project at TIB</a>.',
+    stack: 'Vue.js, PrimeVue, Vue Flow, Apache ECharts, Django, PostgreSQL, Valkey',
+  },
+  {
+    name: 'VIAN',
+    text: '<a href="https://www.ifi.uzh.ch/en/vmml/news/Software-VIAN.html">Video annotation and analysis software</a> for film studies, with a web app for corpus analysis of annotation data. It is developed at the Department of Film Studies at the University of Zurich with the Visual Analytics group at TIB, the group I work in. The <a href="https://github.com/FilmColors/VIAN">source code</a> is on GitHub.',
+  },
+  {
+    name: 'Diamond Funding Navigator',
+    text: 'A TIB service that gives libraries and institutions a central, customisable overview of the consortia that finance Diamond Open Access publications, with the detail needed to decide which to support. Institutions can retrieve their own publication data from OpenAlex for the listed publications. I worked on it with Anita Eppelin and Marco Tullney, and we presented it in a <a href="https://oa.tib.eu/renate/handle/123456789/27850">conference poster</a>.',
+  },
+  {
+    name: 'Document analysis for archives',
+    text: 'Object detection models that find stamps on scanned documents from UK, US and UNHCR archives, used to extract metadata for a <a href="https://doi.org/10.1093/llc/fqab018">study of about 55,000 pages of 1970s refugee-policy records</a>, done with a historian and linguists and also presented as a <a href="/posters/Cosemans_etal_poster_DHBenelux2024.pdf">poster</a>. My MSc thesis applied handwriting recognition with a CRNN model to the field notebooks of <a href="https://en.wikipedia.org/wiki/Alexander_Carmichael">Alexander Carmichael</a>.',
+  },
+  {
+    name: 'Industry systems, 2011 to 2021',
+    text: 'At <a href="https://commercetools.com">Commercetools</a> I built APIs that serve ML models for product metadata enrichment and image search, and feature engineering for e-commerce APIs handling thousands of requests per second. At <a href="https://web.archive.org/web/20171229115100/https://x.ai/">x.ai</a> (archived 2017 page), the New York company behind the Amy and Andrew email scheduling assistants (not the current xAI), I put data science models into production for the conversational assistant and built a crowdsourcing system for training data. At <a href="https://web.archive.org/web/20160109200532/http://www.pellucid.com/">Pellucid Analytics</a> (archived page; the company has since been acquired) I built a distributed pipeline for public financial data, with a custom query language, a query executor and an audit trail. At <a href="https://www.adjust.com">Adjust</a> I led a data engineering team on a terabyte-scale user segmentation pipeline.',
+    stack: 'Scala, Java, Ruby',
+  },
+];
+
+const talks: { title: string; venue: string; url?: string }[] = [
+  { title: 'Editing Trees with Zippers', venue: 'Scala.IO 2017', url: 'https://www.youtube.com/watch?v=Xdc7NkgfIgQ' },
+  {
+    title: 'Introduction to Recursion Schemes',
+    venue: 'Typelevel Summit NYC, 23 March 2017',
+    url: 'https://typelevel.org/blog/summit-nyc-2017-03-23.html',
+  },
+];
+---
+
+<Base
+  title="Software"
+  section="orange"
+  description="Software projects by Ratan Sebastian: bibliometric analysis, video annotation, document analysis and industry systems."
+>
+  <div class="page wrap">
+    <h1 class="page-title">Software</h1>
+    <p class="page-intro">
+      I wrote software professionally for ten years before the PhD and I still build the tools my research needs.
+    </p>
+
+    <div class="projects">
+      {
+        projects.map((p) => (
+          <article>
+            <div>
+              <h2>{p.name}</h2>
+              {p.stack && <p class="stack">{p.stack}</p>}
+            </div>
+            <p set:html={p.text} />
+          </article>
+        ))
+      }
+    </div>
+
+    <h2 class="section-title">Talks</h2>
+    <ul class="talks">
+      {
+        talks.map((t) => (
+          <li>
+            <span class="talk-title">{t.url ? <a href={t.url}>{t.title}</a> : t.title}</span>
+            <span>{t.venue}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>
+
+<style>
+  article {
+    display: grid;
+    gap: 0.75rem 2rem;
+    padding-block: 1.5rem;
+    border-top: 0.25rem solid var(--black);
+  }
+
+  @media (min-width: 800px) {
+    article {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  article h2 {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    margin-bottom: 0.5rem;
+  }
+
+  article p {
+    margin: 0;
+  }
+
+  .stack {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .talks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .talks li {
+    display: grid;
+  }
+
+  .talk-title {
+    font-weight: 600;
+  }
+</style>

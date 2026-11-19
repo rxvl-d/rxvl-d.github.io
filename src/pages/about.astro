@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const path = [
+  { when: '2021 to now', what: 'PhD, Computer Science', where: 'University of Marburg, previously enrolled at Leibniz University Hannover, working at TIB' },
+  { when: '2018 to 2021', what: 'MSc, Data Science, Innovation and Technology, with distinction', where: 'University of Edinburgh, online' },
+  { when: '2020 to 2021', what: 'Data engineer and team lead', where: 'Adjust, Berlin' },
+  { when: '2017 to 2020', what: 'Data and machine learning engineer, people coach', where: 'Commercetools, Berlin' },
+  { when: '2015 to 2017', what: 'Data engineer', where: 'x.ai, New York' },
+  { when: '2013 to 2015', what: 'Software engineer', where: 'Pellucid Analytics, New York' },
+  { when: '2011 to 2013', what: 'Software engineer', where: 'TIM Group, Boston and London' },
+  { when: '2007 to 2011', what: 'BTech, Industrial Engineering', where: 'Indian Institute of Technology Kharagpur' },
+];
+
+const contact = [
+  site.email && { href: `mailto:${site.email}`, label: site.email },
+  site.github && { href: site.github, label: 'GitHub' },
+  site.linkedin && { href: site.linkedin, label: 'LinkedIn' },
+  site.scholar && { href: site.scholar, label: 'Google Scholar' },
+].filter(Boolean) as { href: string; label: string }[];
+---
+
+<Base title="About" section="pink" description="Background of Ratan Sebastian: PhD in computer science, ten years of software engineering before that.">
+  <div class="page wrap">
+    <h1 class="page-title">About</h1>
+    <p class="page-intro">
+      I am a computer scientist finishing a PhD in information retrieval at the University of Marburg, working in the{' '}
+      <a href="https://www.tib.eu/en/research-development/research-groups-and-labs/visual-analytics">Visual Analytics group at TIB</a>,
+      supervised by Anett Hoppe, Ralph Ewerth and Andreas Nehring.
+    </p>
+    <p>
+      Before the PhD I spent ten years as a software engineer in Boston, New York and Berlin, in finance, e-commerce, ad
+      tech and conversational AI. I moved to academia because I found the problems more interesting, and I like working
+      with people from other fields: educational scientists, historians, linguists, librarians and film scholars.
+    </p>
+    <p>I currently live in Berlin.</p>
+
+    <h2 class="section-title">Education and work</h2>
+    <ol class="path">
+      {
+        path.map((p) => (
+          <li>
+            <span class="when">{p.when}</span>
+            <span>
+              <span class="what">{p.what}</span>
+              <span class="where">{p.where}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+
+    {
+      contact.length > 0 && (
+        <>
+          <h2 class="section-title">Contact</h2>
+          <ul class="contact">
+            {contact.map((c) => (
+              <li>
+                <a href={c.href}>{c.label}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .path {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .path li {
+    display: grid;
+    gap: 0.25rem 2rem;
+    padding-block: 0.9rem;
+    border-top: 0.25rem solid var(--black);
+    line-height: 1.4;
+  }
+
+  @media (min-width: 700px) {
+    .path li {
+      grid-template-columns: 9rem 1fr;
+    }
+  }
+
+  .when {
+    font-family: var(--display);
+    font-weight: 700;
+  }
+
+  .what,
+  .where {
+    display: block;
+  }
+
+  .what {
+    font-weight: 600;
+  }
+
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+</style>

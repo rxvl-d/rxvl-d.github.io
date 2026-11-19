@@ -1,0 +1,173 @@
+---
+import Base from '../layouts/Base.astro';
+import { showWriting } from '../data/posts';
+
+const doors = [
+  {
+    href: '/research',
+    title: 'Research',
+    text: 'Search for teachers, interfaces for domain experts, and retrieval in historical photo collections.',
+    color: 'blue',
+  },
+  {
+    href: '/software',
+    title: 'Software',
+    text: 'Bibliometric analysis, video annotation, document analysis and ten years of industry systems.',
+    color: 'orange',
+  },
+  {
+    href: '/writing',
+    title: 'Writing',
+    text: 'The blog.',
+    color: 'yellow',
+  },
+  {
+    href: '/about',
+    title: 'About',
+    text: 'Background, publications and contact.',
+    color: 'pink',
+  },
+];
+const visibleDoors = doors.filter((d) => d.href !== '/writing' || showWriting);
+---
+
+<Base>
+  <section class="intro wrap">
+    <div class="bio">
+      <h1 class="sr-only">Ratan Sebastian</h1>
+      <p>
+        I am Ratan Sebastian. I work on information retrieval and human-computer interaction, building search and
+        analysis tools for teachers, librarians and scholars.
+      </p>
+      <p>
+        I am finishing a PhD at the University of Marburg and work in the{' '}
+        <a href="https://www.tib.eu/en/research-development/research-groups-and-labs/visual-analytics">Visual Analytics group at TIB</a>. Before that I spent ten years as a software
+        engineer in Boston, New York and Berlin, where I currently live.
+      </p>
+    </div>
+    <img src="/ratan.webp" alt="Portrait of Ratan Sebastian" width="683" height="1024" />
+  </section>
+  <nav class={`doors wrap${visibleDoors.length === 3 ? ' doors-three' : ''}`} aria-label="Sections">
+    {
+      visibleDoors.map((d) => (
+        <a class={`door door-${d.color}`} href={d.href}>
+          <h2>{d.title}</h2>
+          <p>{d.text}</p>
+        </a>
+      ))
+    }
+  </nav>
+</Base>
+
+<style>
+  .intro {
+    display: grid;
+    gap: 2rem;
+    padding-block: clamp(1.5rem, 5vw, 4rem) clamp(2.5rem, 6vw, 5rem);
+  }
+
+  @media (min-width: 800px) {
+    .intro {
+      grid-template-columns: 1fr minmax(15rem, 22rem);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .bio p {
+    font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+    line-height: 1.35;
+    max-width: 28em;
+  }
+
+  .intro img {
+    display: block;
+    width: 100%;
+    max-width: 22rem;
+    height: auto;
+  }
+
+  @media (max-width: 799px) {
+    .intro img {
+      order: -1;
+      max-width: 14rem;
+    }
+  }
+
+  .doors {
+    display: grid;
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+
+  /* Two rows of unequal widths: wide then narrow, narrow then wide. */
+  @media (min-width: 800px) {
+    .doors {
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .door:nth-child(1) {
+      grid-column: 1 / 8;
+    }
+    .door:nth-child(2) {
+      grid-column: 8 / 13;
+    }
+    .door:nth-child(3) {
+      grid-column: 1 / 6;
+    }
+    .door:nth-child(4) {
+      grid-column: 6 / 13;
+    }
+    /* With Writing hidden, the last block takes the whole second row. */
+    .doors-three .door:nth-child(3) {
+      grid-column: 1 / 13;
+    }
+  }
+
+  .door {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+    min-height: clamp(13rem, 24vw, 19rem);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  .door h2 {
+    font-size: clamp(2.5rem, 6vw, 4.75rem);
+  }
+
+  .door p {
+    margin: 0;
+    max-width: 24rem;
+    font-size: 1.1em;
+  }
+
+  .door:hover h2,
+  .door:focus-visible h2 {
+    text-decoration: underline;
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.12em;
+  }
+
+  .door-blue {
+    background: var(--blue);
+    color: var(--white);
+  }
+  .door-orange {
+    background: var(--orange);
+  }
+  .door-yellow {
+    background: var(--yellow);
+  }
+  .door-pink {
+    background: var(--pink);
+  }
+
+  .door:focus-visible {
+    outline-offset: -8px;
+  }
+  .door-blue:focus-visible {
+    outline-color: var(--white);
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export function getStaticPaths() {
+  const modules = import.meta.glob<any>('../../posts/*.md', { eager: true });
+  return Object.entries(modules).map(([file, mod]) => ({
+    params: { slug: file.split('/').pop()!.replace(/\.md$/, '') },
+    props: { frontmatter: mod.frontmatter, Content: mod.Content },
+  }));
+}
+
+const { frontmatter, Content } = Astro.props;
+const date = new Date(frontmatter.date).toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base title={frontmatter.title} section="yellow" description={frontmatter.description}>
+  <article class="page wrap">
+    <h1 class="page-title">{frontmatter.title}</h1>
+    <p><time datetime={frontmatter.date}>{date}</time></p>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>

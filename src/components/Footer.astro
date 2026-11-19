@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+
+const links = [
+  site.email && { href: `mailto:${site.email}`, label: 'Email' },
+  site.github && { href: site.github, label: 'GitHub' },
+  site.linkedin && { href: site.linkedin, label: 'LinkedIn' },
+  site.scholar && { href: site.scholar, label: 'Google Scholar' },
+].filter(Boolean) as { href: string; label: string }[];
+---
+
+<footer class="site-footer wrap">
+  <p>{site.name}, Berlin</p>
+  {
+    links.length > 0 && (
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</footer>
+
+<style>
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    border-top: 0.4rem solid var(--black);
+    padding-block: 1.5rem 3rem;
+    font-family: var(--display);
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

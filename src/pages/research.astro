@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import { publications } from '../data/publications';
+
+const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
+---
+
+<Base
+  title="Research"
+  section="blue"
+  description="Research on search for teachers, interfaces for domain experts, and retrieval in historical photo collections."
+>
+  <div class="page wrap">
+    <h1 class="page-title">Research</h1>
+    <p class="page-intro">
+      My work sits between information retrieval and human-computer interaction. The common question is how people with
+      specialised knowledge find and analyse material in large collections.
+    </p>
+
+    <section>
+      <h2 class="section-title">Search for teachers</h2>
+      <p>
+        My dissertation, "Meeting Teachers where they Search: Novel Web Search Augmentations for Educational Resource
+        Discovery", starts from a finding in earlier research: teachers often use general-purpose web search instead of
+        specialised repositories. A behavioural study of teachers on educational search tasks showed how they formulate
+        queries and which aspects of a resource's relevance they cannot judge from standard search results. A <a href="#llm-relevance-labels">multi-dimensional relevance framework</a> then measured the gap between what search snippets convey and what the
+        resources contain. To close that gap at scale, I <a href="#tpdl-2024-metadata-usage">examined how much structured educational metadata exists</a> on the
+        web and <a href="#jcdl-2026-metadata">built lightweight models that extract it in real time</a>. The parts come together in <a href="#aied-2025-augmented-search">LessonLens</a>, a browser
+        extension that adds educational information to existing web search interfaces, which I evaluated in a user study.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Interfaces for domain experts</h2>
+      <p>
+        <a href="https://projects.tib.eu/grobi">GROBI</a> is a web platform where researchers and librarians build bibliometric analyses by connecting nodes in a
+        graph. I designed and implemented it, and I designed, ran and analysed its usability study. <a href="https://www.ifi.uzh.ch/en/vmml/news/Software-VIAN.html">VIAN</a> is a video
+        annotation tool for film scholars, developed at the University of Zurich with the Visual Analytics group at TIB.
+        The <a href="#diamond-funding-navigator">Diamond Funding Navigator</a> gives libraries and institutions an overview of the consortia that finance
+        Diamond Open Access publications. These projects, like the teacher search work, ask what a specialist needs from
+        an interface that a general-purpose tool does not give them.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Retrieval in historical collections</h2>
+      <p>
+        Two recent papers examine how CLIP-style models fail on historical photograph collections. One <a href="#clip-failures-historical-photos">uses hierarchical
+        controlled vocabularies to locate the failures</a>, and the other <a href="#bias-vlm-colonial-contexts">measures gender and racial bias in colonial
+        contexts</a>. Earlier, I worked with a historian and linguists on about 55,000 pages of 1970s refugee-policy documents
+        from UK and US government archives and the UNHCR. My part was the object detection that finds stamps and extracts
+        metadata from the scans. The <a href="#dsh-2021-refugee-archives">resulting paper</a> uses topic modelling to follow how each organisation's focus
+        changed over time.
+      </p>
+    </section>
+
+    <section id="publications">
+      <h2 class="section-title">Publications</h2>
+      {
+        years.map((year) => (
+          <div class="year">
+            <h3>{year}</h3>
+            <ul>
+              {publications
+                .filter((p) => p.year === year)
+                .map((p) => (
+                  <li id={p.slug}>
+                    <span class="title">{p.url ? <a href={p.url}>{p.title}</a> : p.title}</span>
+                    <span class="authors">
+                      {p.authors.map((a, i) => (
+                        <>
+                          {a === 'Ratan Sebastian' ? <strong>{a}</strong> : a}
+                          {i < p.authors.length - 1 ? ', ' : ''}
+                        </>
+                      ))}
+                    </span>
+                    {p.venue && <span class="venue">{p.venue}</span>}
+                    {p.award && <span class="award">{p.award}</span>}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+  </div>
+</Base>
+
+<style>
+  .year {
+    display: grid;
+    gap: 0.75rem 2rem;
+    padding-block: 1.25rem;
+    border-top: 0.25rem solid var(--black);
+  }
+
+  @media (min-width: 700px) {
+    .year {
+      grid-template-columns: 6rem 1fr;
+    }
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  li {
+    display: grid;
+    gap: 0.15rem;
+    max-width: 44rem;
+    line-height: 1.4;
+  }
+
+  li {
+    scroll-margin-top: 1.5rem;
+  }
+
+  li:target {
+    background: var(--yellow);
+    outline: 0.5rem solid var(--yellow);
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .venue {
+    font-style: italic;
+  }
+
+  .award {
+    justify-self: start;
+    margin-top: 0.3rem;
+    padding: 0.1rem 0.5rem;
+    background: var(--yellow);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+</style>

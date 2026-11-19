@@ -1,0 +1,75 @@
+---
+import { site } from '../data/site';
+import { showWriting } from '../data/posts';
+
+const links = [
+  { href: '/research', label: 'Research', color: 'blue' },
+  { href: '/software', label: 'Software', color: 'orange' },
+  { href: '/writing', label: 'Writing', color: 'yellow' },
+  { href: '/about', label: 'About', color: 'pink' },
+].filter((l) => l.href !== '/writing' || showWriting);
+const path = Astro.url.pathname.replace(/\/$/, '');
+---
+
+<header class="site-header wrap">
+  <a class="brand" href="/">{site.name}</a>
+  <nav aria-label="Main">
+    <ul>
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              style={`--c: var(--${l.color})`}
+              aria-current={path === l.href || path.startsWith(l.href + '/') ? 'page' : undefined}
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-block: 1.25rem;
+  }
+
+  .brand {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding-block: 0.2rem;
+    border-bottom: 0.4rem solid transparent;
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    border-bottom-color: var(--c);
+  }
+</style>

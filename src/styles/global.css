@@ -1,0 +1,151 @@
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --blue: #2330f0;
+  --orange: #ff5a1f;
+  --yellow: #ffd21f;
+  --pink: #ff9ec4;
+
+  --display: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
+  --text: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --measure: 38rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--text);
+  font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.3rem);
+  line-height: 1.6;
+  font-optical-sizing: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1em;
+  max-width: var(--measure);
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.2em;
+}
+
+:focus-visible {
+  outline: 4px solid var(--black);
+  outline-offset: 3px;
+}
+
+.wrap {
+  padding-inline: var(--gutter);
+  max-width: 76rem;
+  margin-inline: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: var(--gutter);
+  top: -4rem;
+  background: var(--black);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  font-family: var(--display);
+  z-index: 10;
+}
+
+.skip:focus {
+  top: 0.5rem;
+}
+
+/* Section pages: a colour bar above the title names the section. */
+.page {
+  padding-block: clamp(2rem, 6vw, 5rem) clamp(4rem, 10vw, 8rem);
+}
+
+.page-title {
+  font-size: clamp(2.75rem, 8vw, 6rem);
+  margin-bottom: 0.4em;
+}
+
+.page-title::before {
+  content: '';
+  display: block;
+  width: 6rem;
+  height: 1.1rem;
+  background: var(--section, var(--black));
+  margin-bottom: 1.2rem;
+}
+
+.page-intro {
+  font-size: 1.2em;
+  max-width: 36rem;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  margin: clamp(2.5rem, 6vw, 4.5rem) 0 1rem;
+}
+
+.prose h2 {
+  font-size: 1.8rem;
+  margin: 2.2em 0 0.5em;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  max-width: var(--measure);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background: #f1f1f1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.prose code {
+  font-size: 0.9em;
+}
