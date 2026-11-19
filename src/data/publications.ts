@@ -8,6 +8,7 @@ export interface Publication {
   url?: string;
   slug?: string; // anchor id, so other pages can link to this entry
   award?: string;
+  code?: { label: string; url: string }; // source code or data that goes with the paper
 }
 
 export const publications: Publication[] = [
@@ -25,8 +26,7 @@ export const publications: Publication[] = [
     authors: ['Ratan Sebastian', 'A. Hoppe', 'C. Rippe', 'R. Ewerth'],
     venue: 'arXiv preprint arXiv:2607.19836',
     url: 'https://arxiv.org/abs/2607.19836',
-    slug: 'clip-failures-historical-photos',
-  },
+    slug: 'clip-failures-historical-photos',  },
   {
     year: 2026,
     title: 'Examining Gender and Racial Bias in Vision-language Models within Colonial Contexts',
@@ -34,8 +34,7 @@ export const publications: Publication[] = [
     venue: 'WebSci Companion \'26: Companion Publication of the 2026 18th ACM Web Science Conference, pp. 70-74',
     url: 'https://doi.org/10.1145/3795513.3807441',
     award: 'Best Poster Award, ACM Web Science Conference 2026',
-    slug: 'bias-vlm-colonial-contexts',
-  },
+    slug: 'bias-vlm-colonial-contexts',  },
   {
     year: 2025,
     title: 'Validating LLM-Generated Relevance Labels for Educational Resource Search',
@@ -50,6 +49,7 @@ export const publications: Publication[] = [
     slug: 'aied-2025-augmented-search',
     url: 'https://link.springer.com/chapter/10.1007/978-3-031-98414-3_17',
     award: 'Best paper nominee, AIED 2025 main track',
+    code: { label: 'LessonLens source code', url: 'https://github.com/rxvl-d/LessonLens-pub' },
     authors: ['Ratan Sebastian', 'A. Hoppe'],
     venue: 'International Conference on Artificial Intelligence in Education (AIED), pp. 236-250',
   },

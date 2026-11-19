@@ -2,7 +2,7 @@
 import { site } from '../data/site';
 
 const links = [
-  site.email && { href: `mailto:${site.email}`, label: 'Email' },
+  ...site.emails.map((e) => ({ href: `mailto:${e}`, label: e })),
   site.github && { href: site.github, label: 'GitHub' },
   site.linkedin && { href: site.linkedin, label: 'LinkedIn' },
   site.scholar && { href: site.scholar, label: 'Google Scholar' },

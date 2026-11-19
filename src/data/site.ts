@@ -3,7 +3,7 @@ export const site = {
   name: 'Ratan Sebastian',
   description:
     'Ratan Sebastian works on information retrieval and human-computer interaction: search tools for teachers, librarians and scholars.',
-  email: '',
+  emails: ['ratanjagan@gmail.com', 'Ratan.Sebastian@tib.eu'],
   github: '',
   linkedin: '',
   scholar: '',

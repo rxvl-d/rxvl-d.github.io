@@ -76,6 +76,11 @@ const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a
                     </span>
                     {p.venue && <span class="venue">{p.venue}</span>}
                     {p.award && <span class="award">{p.award}</span>}
+                    {p.code && (
+                      <span class="code">
+                        <a href={p.code.url}>{p.code.label}</a>
+                      </span>
+                    )}
                   </li>
                 ))}
             </ul>
@@ -134,6 +139,12 @@ const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a
 
   .venue {
     font-style: italic;
+  }
+
+  .code {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.95rem;
   }
 
   .award {
